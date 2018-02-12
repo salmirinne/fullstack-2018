@@ -43,8 +43,7 @@ class App extends React.Component {
     let nameToAdd = this.state.newName.trim()
     if (this.state.newName !== '' && this.state.newNumber !== '') {
 
-      let idx = this.state.persons.map(p => p.name).indexOf(nameToAdd)
-      let person = idx >= 0 ? this.state.persons[idx] : undefined
+      let person = this.state.persons.find(p => p.name === nameToAdd)
 
       if (person === undefined) {
         let newPerson = { name: nameToAdd, number: this.state.newNumber }
@@ -72,7 +71,7 @@ class App extends React.Component {
   }
 
   deletePerson = (id) => () => personsService
-    .del(id)
+    .remove(id)
     .then(response => {
       this.setState({ error: `Numeron poisto onnistui` })
       this.resetNotification()
